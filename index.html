@@ -14,13 +14,15 @@
     <a href="#" class="logo-link">
         <img src="images/horn-logo.png" alt="Honker Horn Logo" class="nav-logo" />
     </a>
-    <nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">&#9776;</button>
+    <nav id="navLinks">
         <a href="#shows">Shows</a>
         <a href="#media">Watch &amp; Listen</a>
         <a href="#band">The Band</a>
         <a href="#contact">Contact</a>
     </nav>
 </header>
+
 
 <section class="hero">
     <div class="hero-content">
@@ -66,14 +68,14 @@
     <div class="grid-2">
         <div class="media-card">
             <div class="video-wrap">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/KzSZxLq-5hE?si=VLXrQWSUHEoiO-uN" title="Honker at Funk N Waffles" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/KzSZxLq-5hE?si=VLXrQWSUHEoiO-uN" title="Honker at Funk N Waffles" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
             <h3>Funk N Waffles — Aug 20, 2026</h3>
             <p>Live funk-rock and exploratory jams in Syracuse, NY.</p>
         </div>
         <div class="media-card">
             <div class="video-wrap">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/vF6MXmgVfX4?si=Z6dR3or5aTgsYh_6" title="Honker at Lightyears Fermentation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/vF6MXmgVfX4?si=Z6dR3or5aTgsYh_6" title="Honker at Lightyears Fermentation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
             <h3>Lightyears Fermentation — Sep 26, 2026</h3>
             <p>Full show recorded live in Endicott, NY for WBDY 99.5 FM.</p>
@@ -118,7 +120,9 @@
             <h3>Join the Flock</h3>
             <p>Get Binghamton show announcements and live tape drops.</p>
             <form class="signup-form">
-                <input type="email" placeholder="you@email.com" required />
+                <label>
+                    <input type="email" placeholder="you@email.com" required />
+                </label>
                 <button type="submit" class="btn btn-primary">Subscribe</button>
             </form>
         </div>
@@ -133,5 +137,18 @@
     </div>
 </footer>
 
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+</script>
 </body>
 </html>
+
