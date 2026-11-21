@@ -37,7 +37,7 @@ body {
     padding: 6.5rem 1.5rem;
     background:
             radial-gradient(circle at center, rgba(17, 17, 19, 0.25) 0%, rgba(17, 17, 19, 0.85) 85%, #111113 100%),
-            url('../images/band-hero.jpg') center/cover no-repeat;
+            url('/images/band-hero.jpg') center/cover no-repeat;
 }
 .hero-logo {
     max-width: 260px;
