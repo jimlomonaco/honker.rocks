@@ -119,9 +119,31 @@
         <div>
             <h3>Join the Flock</h3>
             <p>Get show announcements, latest news, and live tape drops.</p>
+            <!-- 1. Your Custom HTML Form (Style this with your own CSS) -->
+            <form id="custom-signup-form" class="signup-form">
+                <label for="email-input"></label><input
+                        type="email"
+                        name="entry.128798260"
+                        id="email-input"
+                        placeholder="you@email.com"
+                        required
+                />
+                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                    <input type="text" id="website-url" name="website_url" tabindex="-1" autocomplete="off" />
+                </div>
+                <button type="submit" id="submit-btn" class="btn btn-primary">Subscribe</button>
+            </form>
+            <!-- Custom success message (hidden until submitted) -->
+            <p id="form-status" style="display: none; color: green;">
+                Thanks for signing up!
+            </p>
+
+            <!--
             <a href="https://mailchi.mp/1e3e22e52faf/honker-email-list" class="btn btn-secondary">
                 Join our Email List
             </a>
+            -->
+
         </div>
         <div>
             <h3>Booking &amp; Socials</h3>
@@ -148,6 +170,58 @@
     navLinks.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => navLinks.classList.remove('open'));
     });
+
+
+    ////google email submit////
+    const form = document.getElementById('custom-signup-form');
+    const statusMsg = document.getElementById('form-status');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Record the exact time the page loaded
+    const pageLoadTime = Date.now();
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // 1. HONEYPOT CHECK: If the hidden field has text, it's a bot
+        const honeypot = document.getElementById('website-url').value;
+
+        // 2. SPEED CHECK: If submitted in under 2 seconds (2000ms), it's likely a bot
+        const timeElapsed = Date.now() - pageLoadTime;
+
+        if (honeypot !== '' || timeElapsed < 2000) {
+            // Pretend it worked so the bot moves on, without sending to Google
+            form.style.display = 'none';
+            statusMsg.style.display = 'block';
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        const formData = new FormData(form);
+        // Remove the honeypot field before sending to Google so Google doesn't get confused
+        formData.delete('website_url');
+
+        const googleFormUrl = 'https://docs.google.com/forms/u/5/d/10qUHc_ANvkBXAxnK3L_BiP0Cw205HP1hMU1MDGz3KoY/formResponse';
+
+        fetch(googleFormUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: formData
+        })
+            .then(() => {
+                form.style.display = 'none';
+                statusMsg.style.display = 'block';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Subscribe';
+                alert('Something went wrong. Please try again.');
+            });
+    });
+    ////end google email submit /////
 </script>
 </body>
 </html>
